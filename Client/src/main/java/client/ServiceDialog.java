@@ -8,7 +8,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.CheckBox;
 
-public class Services extends Dialog{
+public class ServiceDialog extends Dialog {
     private final RadioButton carRb = new RadioButton("Car");
     private final RadioButton suvRb = new RadioButton("SUV");
     private final RadioButton motoRb = new RadioButton("Motorcycle");
@@ -22,7 +22,8 @@ public class Services extends Dialog{
     private final CheckBox wax = new CheckBox("Wax");
     private final CheckBox engineWash = new CheckBox("Engine Wash");
     private final CheckBox chassisWash = new CheckBox("Chassis Wash");
-    public Services(){
+
+    public ServiceDialog() {
         var dialogPane = getDialogPane();
 
         var mainPane = new VBox();

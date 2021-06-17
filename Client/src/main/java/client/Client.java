@@ -110,11 +110,11 @@ public class Client extends Application {
             plateText.setText(plateText.getText().substring(0, plateText.getText().length() - 1));
         });
         enter.setOnAction((event) -> {
-            var dialogSe = new Services();
-            dialogSe.setTitle("Choose services");
-            Window window = dialogSe.getDialogPane().getScene().getWindow();
+            var serviceDialog = new ServiceDialog();
+            serviceDialog.setTitle("Choose services");
+            Window window = serviceDialog.getDialogPane().getScene().getWindow();
             window.setOnCloseRequest((event1) -> window.hide());
-            dialogSe.show();
+            serviceDialog.show();
 
         });
     }
@@ -130,5 +130,4 @@ public class Client extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-
 }
