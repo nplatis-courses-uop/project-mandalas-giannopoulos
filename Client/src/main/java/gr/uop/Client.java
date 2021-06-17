@@ -109,7 +109,14 @@ public class Client extends Application {
         backspace.setOnAction((event) -> {
             plateText.setText(plateText.getText().substring(0, plateText.getText().length() - 1));
         });
-        
+        enter.setOnAction((event) -> {
+            var dialogSe = new Services();
+            dialogSe.setTitle("Choose services");
+            Window window = dialogSe.getDialogPane().getScene().getWindow();
+            window.setOnCloseRequest((event1) -> window.hide());
+            dialogSe.show();
+
+        });
     }
 
     public Button makeKeyButton(String label) {
