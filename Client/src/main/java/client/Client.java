@@ -1,4 +1,4 @@
-package gr.uop;
+package client;
 
 import javafx.application.Application;
 import javafx.scene.Scene;

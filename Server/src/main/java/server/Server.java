@@ -1,4 +1,4 @@
-package gr.uop;
+package server;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -22,5 +22,4 @@ public class Server extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-
 }

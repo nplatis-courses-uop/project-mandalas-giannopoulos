@@ -1,4 +1,5 @@
-module gr.uop {
+module Server {
     requires javafx.controls;
-    exports gr.uop;
+    requires Common;
+    exports server;
 }

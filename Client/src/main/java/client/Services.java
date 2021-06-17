@@ -1,4 +1,4 @@
-package gr.uop;
+package client;
 
 import javafx.scene.control.Dialog;
 import javafx.scene.layout.VBox;
