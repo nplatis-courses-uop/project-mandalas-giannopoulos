@@ -1,24 +1,24 @@
-00, Car: Outside wash, 7
-01, Car: Inside wash, 6
-02, Car: Outside + inside wash, 12
-03, Car: Outside wash special, 9
-04, Car: Inside wash special, 8
-05, Car: Outside + inside wash special, 15
-06, Car: Organic cleaning inside, 80
-07, Car: Waxing/polishing, 80
-08, Car: Engine cleaning, 20
-09, Car: Chassis wash, 3
-10, SUV: Outside wash, 8
-11, SUV: Inside wash, 7
-12, SUV: Outside + inside wash, 14
-13, SUV: Outside wash special, 10
-14, SUV: Inside wash special, 9
-15, SUV: Outside + inside wash special, 17
-16, SUV: Organic cleaning inside, 80
-17, SUV: Waxing/polishing, 90
-18, SUV: Engine cleaning, 20
-19, SUV: Chassis wash, 3
-20, Motorcycle: Outside wash, 6
-21, Motorcycle: Outside wash special, 8
-22, Motorcycle: Waxing/polishing, 40
-23, Motorcycle: Engine cleaning, 10
+CAREXR,Car exterior regular,7
+CARINR,Car interior regular,6
+CAREIR,Car exterior + interior regular,12
+CAREXS,Car exterior special,9
+CARINS,Car interior special,8
+CAREIS,Car exterior + interior special,15
+CARORG,Car organic,80
+CARWAX,Car waxing,80
+CARENG,Car engine,20
+CARCHA,Car chassis,3
+SUVEXR,SUV exterior regular,8
+SUVINR,SUV interior regular,7
+SUVEIR,SUV exterior + interior regular,14
+SUVEXS,SUV exterior special,10
+SUVINS,SUV interior special,9
+SUVEIS,SUV exterior + interior special,17
+SUVORG,SUV organic,80
+SUVWAX,SUV waxing,90
+SUVENG,SUV engine,20
+SUVCHA,SUV chassis,3
+MOTEXR,Motorcycle exterior regular,6
+MOTEXS,Motorcycle exterior special,8
+MOTWAX,Motorcycle waxing,40
+MOTENG,Motorcycle engine,10

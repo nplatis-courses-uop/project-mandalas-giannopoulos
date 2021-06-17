@@ -18,7 +18,7 @@ public class ServiceDialog extends Dialog {
     private final CheckBox outSpecial = new CheckBox("Special");
     private final CheckBox washIO = new CheckBox("Inside/Out wash");
     private final CheckBox ioSpecial = new CheckBox("Special");
-    private final CheckBox bioWash = new CheckBox("Bio wash (Interior)");
+    private final CheckBox org = new CheckBox("Organic cleaning (Interior)");
     private final CheckBox wax = new CheckBox("Wax");
     private final CheckBox engineWash = new CheckBox("Engine Wash");
     private final CheckBox chassisWash = new CheckBox("Chassis Wash");
@@ -54,7 +54,7 @@ public class ServiceDialog extends Dialog {
         ioSpecial.setDisable(true);
         iowPane.getChildren().addAll(washIO, ioSpecial);
 
-        optionsPane.getChildren().addAll(inwPane, outwPane, iowPane, bioWash, wax, engineWash, chassisWash);
+        optionsPane.getChildren().addAll(inwPane, outwPane, iowPane, org, wax, engineWash, chassisWash);
         secondPane.getChildren().addAll(vehiclePane, optionsPane);
 
         mainPane.getChildren().addAll(instructions, secondPane);
