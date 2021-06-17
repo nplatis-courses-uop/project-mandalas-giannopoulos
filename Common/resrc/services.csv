@@ -1,0 +1,24 @@
+00, Car: Outside wash, 7
+01, Car: Inside wash, 6
+02, Car: Outside + inside wash, 12
+03, Car: Outside wash special, 9
+04, Car: Inside wash special, 8
+05, Car: Outside + inside wash special, 15
+06, Car: Organic cleaning inside, 80
+07, Car: Waxing/polishing, 80
+08, Car: Engine cleaning, 20
+09, Car: Chassis wash, 3
+10, SUV: Outside wash, 8
+11, SUV: Inside wash, 7
+12, SUV: Outside + inside wash, 14
+13, SUV: Outside wash special, 10
+14, SUV: Inside wash special, 9
+15, SUV: Outside + inside wash special, 17
+16, SUV: Organic cleaning inside, 80
+17, SUV: Waxing/polishing, 90
+18, SUV: Engine cleaning, 20
+19, SUV: Chassis wash, 3
+20, Motorcycle: Outside wash, 6
+21, Motorcycle: Outside wash special, 8
+22, Motorcycle: Waxing/polishing, 40
+23, Motorcycle: Engine cleaning, 10
