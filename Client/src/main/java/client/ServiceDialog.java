@@ -61,5 +61,55 @@ public class ServiceDialog extends Dialog {
         dialogPane.setContent(mainPane);
         dialogPane.setMinSize(1920, 1080);
 
+        carRb.setOnAction((event) -> {
+            handleVisibility();
+        });
+        suvRb.setOnAction((event) -> {
+            handleVisibility();
+        });
+        motoRb.setOnAction((event) -> {
+            handleVisibility();
+        });
+        washIn.setOnAction((event) -> {
+            handleVisibility();
+        });
+        inSpecial.setOnAction((event) -> {
+            handleVisibility();
+        });
+        washOut.setOnAction((event) -> {
+            handleVisibility();
+        });
+        outSpecial.setOnAction((event) -> {
+            handleVisibility();
+        });
+        washIO.setOnAction((event) -> {
+            handleVisibility();
+        });
+        ioSpecial.setOnAction((event) -> {
+            handleVisibility();
+        });
+        org.setOnAction((event) -> {
+            handleVisibility();
+        });
+        wax.setOnAction((event) -> {
+            handleVisibility();
+        });
+        engineWash.setOnAction((event) -> {
+            handleVisibility();
+        });
+        chassisWash.setOnAction((event) -> {
+            handleVisibility();
+        });
+    }
+
+    private void handleVisibility() {
+        washIn.setDisable(motoRb.isSelected() || org.isSelected() || washIO.isSelected());
+        inSpecial.setDisable(motoRb.isSelected() || !washIn.isSelected());
+        outSpecial.setDisable(!washOut.isSelected());
+        washIO.setDisable(motoRb.isSelected() || washIn.isSelected() || washOut.isSelected() || org.isSelected());
+        ioSpecial.setDisable(motoRb.isSelected() || !washIO.isSelected());
+        org.setDisable(motoRb.isSelected() || washIn.isSelected());
+        chassisWash.setDisable(motoRb.isSelected());
+        washOut.setDisable(washIO.isSelected());
     }
 }
