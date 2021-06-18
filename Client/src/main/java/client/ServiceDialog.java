@@ -29,7 +29,7 @@ public class ServiceDialog extends Dialog {
     private final CheckBox wax = new CheckBox("Wax");
     private final CheckBox engineWash = new CheckBox("Engine Wash");
     private final CheckBox chassisWash = new CheckBox("Chassis Wash");
-    private final Label priceLabel = new Label("Your total is ");
+    private final Label priceLabel = new Label("Your total is 0.00");
 
     public ServiceDialog(TextField plate) {
         var dialogPane = getDialogPane();
@@ -185,66 +185,90 @@ public class ServiceDialog extends Dialog {
     }
 
     private void updateCost() {
-        var cost = 0;
+        var codes = new ArrayList<String>();
         if (carRb.isSelected()) {
             if (washIn.isSelected() && !washIn.isDisabled()) {
-                cost += inSpecial.isSelected() ? getPrice("CARINS") : getPrice("CARINR");
+                if (inSpecial.isSelected()) {
+                    codes.add("CARINS");
+                } else {
+                    codes.add("CARINR");
+                }
             }
             if (washOut.isSelected() && !washOut.isDisabled()) {
-                cost += outSpecial.isSelected() ? getPrice("CAREXS") : getPrice("CAREXR");
+                if (outSpecial.isSelected()) {
+                    codes.add("CAREXS");
+                } else {
+                    codes.add("CAREXR");
+                }
             }
             if (washIO.isSelected() && !washIO.isDisabled()) {
-                cost += ioSpecial.isSelected() ? getPrice("CAREIS") : getPrice("CAREIR");
+                if (ioSpecial.isSelected()) {
+                    codes.add("CAREIS");
+                } else {
+                    codes.add("CAREIR");
+                }
             }
             if (org.isSelected() && !org.isDisabled()) {
-                cost += getPrice("CARORG");
+                codes.add("CARORG");
             }
             if (wax.isSelected()) {
-                cost += getPrice("CARWAX");
+                codes.add("CARWAX");
             }
             if (engineWash.isSelected()) {
-                cost += getPrice("CARENG");
+                codes.add("CARENG");
             }
             if (chassisWash.isSelected() && !chassisWash.isDisabled()) {
-                cost += getPrice("CARCHA");
+                codes.add("CARCHA");
             }
         } else if (suvRb.isSelected()) {
             if (washIn.isSelected() && !washIn.isDisabled()) {
-                cost += inSpecial.isSelected() ? getPrice("SUVINS") : getPrice("SUVINR");
+                if (inSpecial.isSelected()) {
+                    codes.add("SUVINS");
+                } else {
+                    codes.add("SUVINR");
+                }
             }
             if (washOut.isSelected() && !washOut.isDisabled()) {
-                cost += outSpecial.isSelected() ? getPrice("SUVEXS") : getPrice("SUVEXR");
+                if (outSpecial.isSelected()) {
+                    codes.add("SUVEXS");
+                } else {
+                    codes.add("SUVEXR");
+                }
             }
             if (washIO.isSelected() && !washIO.isDisabled()) {
-                cost += ioSpecial.isSelected() ? getPrice("SUVEIS") : getPrice("SUVEIR");
+                if (ioSpecial.isSelected()) {
+                    codes.add("SUVEIS");
+                } else {
+                    codes.add("SUVEIR");
+                }
             }
             if (org.isSelected() && !org.isDisabled()) {
-                cost += getPrice("SUVORG");
+                codes.add("SUVORG");
             }
             if (wax.isSelected()) {
-                cost += getPrice("SUVWAX");
+                codes.add("SUVWAX");
             }
             if (engineWash.isSelected()) {
-                cost += getPrice("SUVENG");
+                codes.add("SUVENG");
             }
             if (chassisWash.isSelected() && !chassisWash.isDisabled()) {
-                cost += getPrice("SUVCHA");
+                codes.add("SUVCHA");
             }
         } else if (motoRb.isSelected()) {
             if (washOut.isSelected() && !washOut.isDisabled()) {
-                cost += outSpecial.isSelected() ? getPrice("MOTEXS") : getPrice("MOTEXR");
+                if (outSpecial.isSelected()) {
+                    codes.add("MOTEXS");
+                } else {
+                    codes.add("MOTEXR");
+                }
             }
             if (wax.isSelected()) {
-                cost += getPrice("MOTWAX");
+                codes.add("MOTWAX");
             }
             if (engineWash.isSelected()) {
-                cost += getPrice("MOTENG");
+                codes.add("MOTENG");
             }
         }
-        priceLabel.setText("Your total is " + cost);
-    }
-
-    private static double getPrice(String code) {
-        return Services.get().services.get(code).getValue1();
+        priceLabel.setText("Your total is " + Services.calculateCost(codes));
     }
 }

@@ -15,7 +15,7 @@ public class App {
         ) {
             objectOutputStream.writeObject(Pair.with(plate, services));
         } catch (IOException e) {
-            System.err.println(e);
+            System.err.println(e.getMessage());
         }
     }
 
