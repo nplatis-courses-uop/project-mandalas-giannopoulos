@@ -18,4 +18,8 @@ public class App {
             System.err.println(e);
         }
     }
+
+    public static boolean plateValidation(String plate) {
+        return plate.length() > 2;
+    }
 }

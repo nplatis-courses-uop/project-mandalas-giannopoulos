@@ -2,9 +2,11 @@ package client;
 
 import javafx.scene.control.Dialog;
 import javafx.scene.layout.VBox;
+import javafx.stage.Window;
 import javafx.scene.layout.HBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 
 import java.util.ArrayList;
@@ -27,7 +29,7 @@ public class ServiceDialog extends Dialog {
     private final CheckBox engineWash = new CheckBox("Engine Wash");
     private final CheckBox chassisWash = new CheckBox("Chassis Wash");
 
-    public ServiceDialog(String plate) {
+    public ServiceDialog(TextField plate) {
         var dialogPane = getDialogPane();
 
         var mainPane = new VBox();
@@ -109,7 +111,11 @@ public class ServiceDialog extends Dialog {
                 serviceList.add(prefix + "CHA");
             }
 
-            App.send(plate, serviceList);
+            App.send(plate.getText(), serviceList);
+        });
+        cancelBtn.setOnAction((event) -> {
+            dialogPane.getScene().getWindow().hide();
+            plate.clear();
         });
         carRb.setOnAction((event) -> {
             handleVisibility();

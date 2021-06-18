@@ -2,9 +2,11 @@ package client;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -110,11 +112,20 @@ public class Client extends Application {
             plateText.setText(plateText.getText().substring(0, plateText.getText().length() - 1));
         });
         enter.setOnAction((event) -> {
-            var serviceDialog = new ServiceDialog(plateText.getText());
-            serviceDialog.setTitle("Choose services");
-            Window window = serviceDialog.getDialogPane().getScene().getWindow();
-            window.setOnCloseRequest((event1) -> window.hide());
-            serviceDialog.show();
+            plateText.setText(plateText.getText().trim());
+            if (App.plateValidation(plateText.getText())) {
+                var serviceDialog = new ServiceDialog(plateText);
+                serviceDialog.setTitle("Choose services");
+                Window window = serviceDialog.getDialogPane().getScene().getWindow();
+                window.setOnCloseRequest((event1) -> window.hide());
+                serviceDialog.show();
+            } else {
+                var alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("There is something wrong with your plate number");
+                alert.setContentText("Your plate number must be at least 3 characters!");
+                alert.showAndWait();
+            }
 
         });
     }
