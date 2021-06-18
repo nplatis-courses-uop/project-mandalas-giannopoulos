@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -115,6 +116,8 @@ public class Client extends Application {
             plateText.setText(plateText.getText().trim());
             if (App.plateValidation(plateText.getText())) {
                 var serviceDialog = new ServiceDialog(plateText);
+                serviceDialog.initOwner(stage);
+                serviceDialog.initModality(Modality.APPLICATION_MODAL);
                 serviceDialog.setTitle("Choose services");
                 Window window = serviceDialog.getDialogPane().getScene().getWindow();
                 window.setOnCloseRequest((event1) -> window.hide());
