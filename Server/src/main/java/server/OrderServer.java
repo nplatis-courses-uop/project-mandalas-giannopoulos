@@ -8,6 +8,7 @@ public class OrderServer implements Runnable {
 
     @Override
     public void run() {
+        Database.init();
         try {
             serverSocket = new ServerSocket(5555);
             while (Server.isRunning) {

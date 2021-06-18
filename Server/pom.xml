@@ -32,7 +32,16 @@
             <groupId>org.xerial</groupId>
             <artifactId>sqlite-jdbc</artifactId>
             <version>3.34.0</version>
-            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.j256.ormlite</groupId>
+            <artifactId>ormlite-core</artifactId>
+            <version>5.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.j256.ormlite</groupId>
+            <artifactId>ormlite-jdbc</artifactId>
+            <version>5.5</version>
         </dependency>
         <dependency>
             <groupId>gr.uop</groupId>

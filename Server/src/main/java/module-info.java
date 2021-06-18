@@ -3,6 +3,8 @@ module Server {
     requires javatuples;
     requires java.sql;
     requires sqlite.jdbc;
+    requires ormlite.core;
+    requires ormlite.jdbc;
     requires Common;
     exports server;
 }

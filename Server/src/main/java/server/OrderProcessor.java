@@ -3,8 +3,6 @@ package server;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -25,10 +23,14 @@ public class OrderProcessor implements Runnable {
     public void run() {
         try (var ois = new ObjectInputStream(clientSocket.getInputStream())) {
             var order = (Pair<String, List<String>>) ois.readObject();
+            var cost = Services.calculateCost(order.getValue1());
+            var plate = order.getValue0();
+            var services = order.getValue1();
+            var arrivalTime = LocalDateTime.now();
             var entry = new ArrayList<String>();
-            entry.add(order.getValue0());
-            entry.add(String.format("%.2f", Services.calculateCost(order.getValue1())));
-            entry.add(dtf.format(LocalDateTime.now()));
+            entry.add(plate);
+            entry.add(String.format("%.2f", cost));
+            entry.add(dtf.format(arrivalTime));
             Server.table.getItems().add(entry);
         } catch (IOException|ClassNotFoundException e) {
             System.err.println(e.getMessage());
