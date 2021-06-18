@@ -11,6 +11,7 @@ import javafx.scene.control.ToggleGroup;
 
 import java.util.ArrayList;
 
+import common.Services;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 
@@ -28,6 +29,7 @@ public class ServiceDialog extends Dialog {
     private final CheckBox wax = new CheckBox("Wax");
     private final CheckBox engineWash = new CheckBox("Engine Wash");
     private final CheckBox chassisWash = new CheckBox("Chassis Wash");
+    private final Label priceLabel = new Label("Your total is ");
 
     public ServiceDialog(TextField plate) {
         var dialogPane = getDialogPane();
@@ -68,7 +70,7 @@ public class ServiceDialog extends Dialog {
         optionsPane.getChildren().addAll(inwPane, outwPane, iowPane, org, wax, engineWash, chassisWash);
         secondPane.getChildren().addAll(vehiclePane, optionsPane);
 
-        mainPane.getChildren().addAll(instructions, secondPane, buttonPane);
+        mainPane.getChildren().addAll(instructions, secondPane, priceLabel, buttonPane);
         dialogPane.setContent(mainPane);
         dialogPane.setMinSize(1920, 1080);
 
@@ -119,42 +121,55 @@ public class ServiceDialog extends Dialog {
         });
         carRb.setOnAction((event) -> {
             handleVisibility();
+            updateCost();
         });
         suvRb.setOnAction((event) -> {
             handleVisibility();
+            updateCost();
         });
         motoRb.setOnAction((event) -> {
             handleVisibility();
+            updateCost();
         });
         washIn.setOnAction((event) -> {
             handleVisibility();
+            updateCost();
         });
         inSpecial.setOnAction((event) -> {
             handleVisibility();
+            updateCost();
         });
         washOut.setOnAction((event) -> {
             handleVisibility();
+            updateCost();
         });
         outSpecial.setOnAction((event) -> {
             handleVisibility();
+            updateCost();
         });
         washIO.setOnAction((event) -> {
             handleVisibility();
+            updateCost();
         });
         ioSpecial.setOnAction((event) -> {
             handleVisibility();
+            updateCost();
         });
         org.setOnAction((event) -> {
             handleVisibility();
+            updateCost();
         });
         wax.setOnAction((event) -> {
             handleVisibility();
+            updateCost();
         });
         engineWash.setOnAction((event) -> {
             handleVisibility();
+            updateCost();
         });
         chassisWash.setOnAction((event) -> {
             handleVisibility();
+            updateCost();
         });
     }
 
@@ -167,5 +182,69 @@ public class ServiceDialog extends Dialog {
         org.setDisable(motoRb.isSelected() || washIn.isSelected());
         chassisWash.setDisable(motoRb.isSelected());
         washOut.setDisable(washIO.isSelected());
+    }
+
+    private void updateCost() {
+        var cost = 0;
+        if (carRb.isSelected()) {
+            if (washIn.isSelected() && !washIn.isDisabled()) {
+                cost += inSpecial.isSelected() ? getPrice("CARINS") : getPrice("CARINR");
+            }
+            if (washOut.isSelected() && !washOut.isDisabled()) {
+                cost += outSpecial.isSelected() ? getPrice("CAREXS") : getPrice("CAREXR");
+            }
+            if (washIO.isSelected() && !washIO.isDisabled()) {
+                cost += ioSpecial.isSelected() ? getPrice("CAREIS") : getPrice("CAREIR");
+            }
+            if (org.isSelected() && !org.isDisabled()) {
+                cost += getPrice("CARORG");
+            }
+            if (wax.isSelected()) {
+                cost += getPrice("CARWAX");
+            }
+            if (engineWash.isSelected()) {
+                cost += getPrice("CARENG");
+            }
+            if (chassisWash.isSelected() && !chassisWash.isDisabled()) {
+                cost += getPrice("CARCHA");
+            }
+        } else if (suvRb.isSelected()) {
+            if (washIn.isSelected() && !washIn.isDisabled()) {
+                cost += inSpecial.isSelected() ? getPrice("SUVINS") : getPrice("SUVINR");
+            }
+            if (washOut.isSelected() && !washOut.isDisabled()) {
+                cost += outSpecial.isSelected() ? getPrice("SUVEXS") : getPrice("SUVEXR");
+            }
+            if (washIO.isSelected() && !washIO.isDisabled()) {
+                cost += ioSpecial.isSelected() ? getPrice("SUVEIS") : getPrice("SUVEIR");
+            }
+            if (org.isSelected() && !org.isDisabled()) {
+                cost += getPrice("SUVORG");
+            }
+            if (wax.isSelected()) {
+                cost += getPrice("SUVWAX");
+            }
+            if (engineWash.isSelected()) {
+                cost += getPrice("SUVENG");
+            }
+            if (chassisWash.isSelected() && !chassisWash.isDisabled()) {
+                cost += getPrice("SUVCHA");
+            }
+        } else if (motoRb.isSelected()) {
+            if (washOut.isSelected() && !washOut.isDisabled()) {
+                cost += outSpecial.isSelected() ? getPrice("MOTEXS") : getPrice("MOTEXR");
+            }
+            if (wax.isSelected()) {
+                cost += getPrice("MOTWAX");
+            }
+            if (engineWash.isSelected()) {
+                cost += getPrice("MOTENG");
+            }
+        }
+        priceLabel.setText("Your total is " + cost);
+    }
+
+    private static double getPrice(String code) {
+        return Services.get().services.get(code).getValue1();
     }
 }
