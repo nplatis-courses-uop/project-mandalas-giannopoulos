@@ -2,6 +2,7 @@ package common;
 
 import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -30,5 +31,13 @@ public class Services {
             instance = new Services();
         }
         return instance;
+    }
+
+    public static double calculateCost(List<String> codes) {
+        var cost = 0.;
+        for (var code : codes) {
+            cost += Services.get().services.get(code).getValue1();
+        }
+        return cost;
     }
 }
