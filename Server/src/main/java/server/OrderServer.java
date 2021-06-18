@@ -12,7 +12,7 @@ public class OrderServer implements Runnable {
                 new Thread(new OrderProcessor(clientSocket)).start();
             }
         } catch (IOException e) {
-            System.err.println(e);
+            System.err.println(e.getMessage());
         }
     }
 }
