@@ -27,7 +27,7 @@ public class OrderProcessor implements Runnable {
             var order = (Pair<String, List<String>>) ois.readObject();
             var entry = new ArrayList<String>();
             entry.add(order.getValue0());
-            entry.add(Double.toString(Services.calculateCost(order.getValue1())));
+            entry.add(String.format("%.2f", Services.calculateCost(order.getValue1())));
             entry.add(dtf.format(LocalDateTime.now()));
             Server.table.getItems().add(entry);
         } catch (IOException|ClassNotFoundException e) {
