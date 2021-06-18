@@ -110,7 +110,7 @@ public class Client extends Application {
             plateText.setText(plateText.getText().substring(0, plateText.getText().length() - 1));
         });
         enter.setOnAction((event) -> {
-            var serviceDialog = new ServiceDialog();
+            var serviceDialog = new ServiceDialog(plateText.getText());
             serviceDialog.setTitle("Choose services");
             Window window = serviceDialog.getDialogPane().getScene().getWindow();
             window.setOnCloseRequest((event1) -> window.hide());

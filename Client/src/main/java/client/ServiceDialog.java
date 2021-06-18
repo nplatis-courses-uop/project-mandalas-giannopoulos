@@ -6,6 +6,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+
+import java.util.ArrayList;
+
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 
 public class ServiceDialog extends Dialog {
@@ -23,7 +27,7 @@ public class ServiceDialog extends Dialog {
     private final CheckBox engineWash = new CheckBox("Engine Wash");
     private final CheckBox chassisWash = new CheckBox("Chassis Wash");
 
-    public ServiceDialog() {
+    public ServiceDialog(String plate) {
         var dialogPane = getDialogPane();
 
         var mainPane = new VBox();
@@ -54,13 +58,59 @@ public class ServiceDialog extends Dialog {
         ioSpecial.setDisable(true);
         iowPane.getChildren().addAll(washIO, ioSpecial);
 
+        var buttonPane = new HBox();
+        var doneBtn = new Button("Done");
+        var cancelBtn = new Button("Cancel");
+        buttonPane.getChildren().addAll(doneBtn, cancelBtn);
+
         optionsPane.getChildren().addAll(inwPane, outwPane, iowPane, org, wax, engineWash, chassisWash);
         secondPane.getChildren().addAll(vehiclePane, optionsPane);
 
-        mainPane.getChildren().addAll(instructions, secondPane);
+        mainPane.getChildren().addAll(instructions, secondPane, buttonPane);
         dialogPane.setContent(mainPane);
         dialogPane.setMinSize(1920, 1080);
 
+        doneBtn.setOnAction((event) -> {
+            var serviceList = new ArrayList<String>();
+            var prefix = "";
+            var selectedRb = vehicleGroup.getSelectedToggle();
+            if (selectedRb == carRb) {
+                prefix = "CAR";
+            } else if (selectedRb == suvRb) {
+                prefix = "SUV";
+            } else if (selectedRb == motoRb) {
+                prefix = "MOT";
+            }
+            if (washIn.isSelected()) {
+                var code = prefix + "IN";
+                code += inSpecial.isSelected() ? "S" : "R";
+                serviceList.add(code);
+            }
+            if (washOut.isSelected()) {
+                var code = prefix + "EX";
+                code += outSpecial.isSelected() ? "S" : "R";
+                serviceList.add(code);
+            }
+            if (washIO.isSelected()) {
+                var code = prefix + "IE";
+                code += ioSpecial.isSelected() ? "S" : "R";
+                serviceList.add(code);
+            }
+            if (org.isSelected()) {
+                serviceList.add(prefix + "ORG");
+            }
+            if (wax.isSelected()) {
+                serviceList.add(prefix + "WAX");
+            }
+            if (engineWash.isSelected()) {
+                serviceList.add(prefix + "ENG");
+            }
+            if (chassisWash.isSelected()) {
+                serviceList.add(prefix + "CHA");
+            }
+
+            App.send(plate, serviceList);
+        });
         carRb.setOnAction((event) -> {
             handleVisibility();
         });
