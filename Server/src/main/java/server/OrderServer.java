@@ -21,11 +21,12 @@ public class OrderServer implements Runnable {
     }
 
     public void shutdown() {
-        try {
-            serverSocket.close();
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
+        if (serverSocket != null) {
+            try {
+                serverSocket.close();
+            } catch (IOException e) {
+                System.err.println(e.getMessage());
+            }
         }
-
     }
 }
