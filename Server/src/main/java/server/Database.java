@@ -29,4 +29,24 @@ public class Database {
             System.err.println(e);
         }
     }
+
+    static void update(BookEntry entry) {
+        try (ConnectionSource conn =
+                new JdbcConnectionSource("jdbc:sqlite:Server/db/book.db"))
+        {
+            DaoManager.createDao(conn, BookEntry.class).update(entry);
+        } catch (SQLException|IOException e) {
+            System.err.println(e);
+        }
+    }
+
+    static void delete(BookEntry entry) {
+        try (ConnectionSource conn =
+                new JdbcConnectionSource("jdbc:sqlite:Server/db/book.db"))
+        {
+            DaoManager.createDao(conn, BookEntry.class).delete(entry);
+        } catch (SQLException|IOException e) {
+            System.err.println(e);
+        }
+    }
 }
