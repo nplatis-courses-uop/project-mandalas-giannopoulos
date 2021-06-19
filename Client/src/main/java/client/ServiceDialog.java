@@ -2,17 +2,19 @@ package client;
 
 import javafx.scene.control.Dialog;
 import javafx.scene.layout.VBox;
-import javafx.stage.Window;
 import javafx.scene.layout.HBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Alert.AlertType;
 
 import java.util.ArrayList;
 
 import common.Services;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 
 public class ServiceDialog extends Dialog {
@@ -112,8 +114,20 @@ public class ServiceDialog extends Dialog {
             if (chassisWash.isSelected()) {
                 serviceList.add(prefix + "CHA");
             }
-
-            App.send(plate.getText(), serviceList);
+            var alert = new Alert(AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation");
+            alert.setHeaderText("Please confirm information");
+            var content = "Plate: " + plate.getText() + "\n";
+            content += "Services:\n";
+            for (var service : serviceList) {
+                var pair = Services.get().services.get(service);
+                content += "\t" + pair.getValue0() + " (" + String.format("%.2f", pair.getValue1()) + ")\n";
+            }
+            alert.setContentText(content);
+            var pushed = alert.showAndWait();
+            if (pushed.get() == ButtonType.OK) {
+                App.send(plate.getText(), serviceList);
+            }
         });
         cancelBtn.setOnAction((event) -> {
             dialogPane.getScene().getWindow().hide();
