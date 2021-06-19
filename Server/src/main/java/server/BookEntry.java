@@ -36,6 +36,22 @@ public class BookEntry {
         this.arrivalTime = arrivalTime;
     }
 
+    public String getPlate() {
+        return plate;
+    }
+
+    public double getCost() {
+        return cost;
+    }
+
+    public ArrayList<String> getServices() {
+        return services;
+    }
+
+    public LocalDateTime getArrivalTime() {
+        return arrivalTime;
+    }
+
     public void setDepartureTime(LocalDateTime departureTime) {
         this.departureTime = departureTime;
     }
