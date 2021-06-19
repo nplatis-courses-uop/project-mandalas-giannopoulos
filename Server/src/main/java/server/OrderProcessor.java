@@ -20,11 +20,12 @@ public class OrderProcessor implements Runnable {
     public void run() {
         try (var ois = new ObjectInputStream(clientSocket.getInputStream())) {
             var order = (Pair<String, ArrayList<String>>) ois.readObject();
-            var cost = Services.calculateCost(order.getValue1());
             var plate = order.getValue0();
             var services = order.getValue1();
             var arrivalTime = LocalDateTime.now();
-            Server.table.getItems().add(new BookEntry(plate, services, arrivalTime));
+            var entry = new BookEntry(plate, services, arrivalTime);
+            Database.create(entry);
+            Server.table.getItems().add(entry);
         } catch (IOException|ClassNotFoundException e) {
             System.err.println(e.getMessage());
         }
