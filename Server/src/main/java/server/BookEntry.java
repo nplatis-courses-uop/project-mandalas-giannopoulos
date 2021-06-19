@@ -3,25 +3,28 @@ package server;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "book")
 public class BookEntry {
     @DatabaseField(generatedId = true)
-    private final int id;
+    private int id;
 
     @DatabaseField(canBeNull = false)
-    private final String plate;
+    private String plate;
 
-    @DatabaseField(canBeNull = false)
-    private final ArrayList<String> services;
+    @DatabaseField(canBeNull = false, dataType = DataType.SERIALIZABLE)
+    private ArrayList<String> services;
 
-    @DatabaseField(canBeNull = false)
-    private final LocalDateTime arrivalTime;
+    @DatabaseField(canBeNull = false, dataType = DataType.SERIALIZABLE)
+    private LocalDateTime arrivalTime;
 
+    @DatabaseField(dataType = DataType.SERIALIZABLE)
     private LocalDateTime departureTime;
 
+    @DatabaseField
     private double cost;
 
     // Mandatory for ORM to work

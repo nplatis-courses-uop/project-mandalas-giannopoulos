@@ -14,6 +14,7 @@ public class Database {
                 new JdbcConnectionSource("jdbc:sqlite:Server/db/book.db"))
         {
             TableUtils.createTableIfNotExists(conn, BookEntry.class);
+            conn.close();
         } catch (SQLException|IOException e) {
             System.err.println(e);
         }

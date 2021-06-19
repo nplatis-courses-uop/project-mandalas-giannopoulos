@@ -6,5 +6,5 @@ module Server {
     requires ormlite.core;
     requires ormlite.jdbc;
     requires Common;
-    exports server;
+    opens server;
 }
