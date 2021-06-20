@@ -19,7 +19,7 @@ public class Database {
      */
     static void init() {
         try (ConnectionSource conn = new JdbcConnectionSource("jdbc:sqlite:Server/db/book.db")) {
-            TableUtils.createTableIfNotExists(conn, BookEntry.class);
+            TableUtils.createTableIfNotExists(conn, Order.class);
             conn.close();
         } catch (SQLException|IOException e) {
             System.err.println(e);
@@ -29,9 +29,9 @@ public class Database {
     /**
      * Creates an entry in database from a BookEntry object
      */
-    static void create(BookEntry entry) {
+    static void create(Order entry) {
         try (ConnectionSource conn = new JdbcConnectionSource("jdbc:sqlite:Server/db/book.db")) {
-            DaoManager.createDao(conn, BookEntry.class).create(entry);
+            DaoManager.createDao(conn, Order.class).create(entry);
             conn.close();
         } catch (SQLException|IOException e) {
             System.err.println(e);
@@ -41,9 +41,9 @@ public class Database {
     /**
      * @return All orders (completed and pending)
      */
-    static List<BookEntry> read() {
+    static List<Order> read() {
         try (ConnectionSource conn = new JdbcConnectionSource("jdbc:sqlite:Server/db/book.db")) {
-            var result = DaoManager.createDao(conn, BookEntry.class).queryForAll();
+            var result = DaoManager.createDao(conn, Order.class).queryForAll();
             conn.close();
             return result;
         } catch (SQLException|IOException e) {
@@ -55,9 +55,9 @@ public class Database {
     /**
      * @return Pending orders
      */
-    static List<BookEntry> readPending() {
+    static List<Order> readPending() {
         try (ConnectionSource conn = new JdbcConnectionSource("jdbc:sqlite:Server/db/book.db")) {
-            var result = DaoManager.createDao(conn, BookEntry.class).queryBuilder().where()
+            var result = DaoManager.createDao(conn, Order.class).queryBuilder().where()
                 .isNull("departureTime").query();
             conn.close();
             return result;
@@ -70,9 +70,9 @@ public class Database {
     /**
      * @param entry to be updated
      */
-    static void update(BookEntry entry) {
+    static void update(Order entry) {
         try (ConnectionSource conn = new JdbcConnectionSource("jdbc:sqlite:Server/db/book.db")) {
-            DaoManager.createDao(conn, BookEntry.class).update(entry);
+            DaoManager.createDao(conn, Order.class).update(entry);
             conn.close();
         } catch (SQLException|IOException e) {
             System.err.println(e);
@@ -82,9 +82,9 @@ public class Database {
     /**
      * @param entry to be deleted
      */
-    static void delete(BookEntry entry) {
+    static void delete(Order entry) {
         try (ConnectionSource conn = new JdbcConnectionSource("jdbc:sqlite:Server/db/book.db")) {
-            DaoManager.createDao(conn, BookEntry.class).delete(entry);
+            DaoManager.createDao(conn, Order.class).delete(entry);
             conn.close();
         } catch (SQLException|IOException e) {
             System.err.println(e);

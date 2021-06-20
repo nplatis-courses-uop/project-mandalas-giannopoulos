@@ -22,21 +22,21 @@ import javafx.stage.Window;
  */
 public class Server extends Application {
     public static boolean isRunning = true;
-    public static TableView<BookEntry> table = new TableView<>();
+    public static TableView<Order> table = new TableView<>();
     private static OrderServer server = new OrderServer();
     private final static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
     @Override
     public void start(Stage stage) {
-        var plateCol = new TableColumn<BookEntry, String>("Plate");
+        var plateCol = new TableColumn<Order, String>("Plate");
         plateCol.setCellValueFactory(x -> new SimpleStringProperty(x.getValue().getPlate()));
         table.getColumns().add(plateCol);
-        var costCol = new TableColumn<BookEntry, String>("Cost");
+        var costCol = new TableColumn<Order, String>("Cost");
         costCol.setCellValueFactory(x ->
             new SimpleStringProperty(String.format("%.2f",
                 Services.calculateCost(x.getValue().getServices()))));
         table.getColumns().add(costCol);
-        var arrivalCol = new TableColumn<BookEntry, String>("Arrival Time");
+        var arrivalCol = new TableColumn<Order, String>("Arrival Time");
         arrivalCol.setCellValueFactory(x -> 
             new SimpleStringProperty(dtf.format(x.getValue().getArrivalTime())));
         table.getColumns().add(arrivalCol);

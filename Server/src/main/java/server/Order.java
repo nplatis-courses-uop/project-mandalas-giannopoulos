@@ -14,7 +14,7 @@ import com.j256.ormlite.table.DatabaseTable;
  * </dl>
  */
 @DatabaseTable(tableName = "book")
-public class BookEntry {
+public class Order {
     @DatabaseField(generatedId = true)
     private int id;
 
@@ -34,9 +34,9 @@ public class BookEntry {
     private double cost;
 
     // Required by ORM
-    public BookEntry() { }
+    public Order() { }
 
-    public BookEntry(String plate, ArrayList<String> services, LocalDateTime arrivalTime) {
+    public Order(String plate, ArrayList<String> services, LocalDateTime arrivalTime) {
         this.plate = plate;
         this.services = services;
         this.arrivalTime = arrivalTime;

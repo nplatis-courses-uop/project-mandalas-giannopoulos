@@ -14,7 +14,7 @@ import javafx.scene.layout.VBox;
  */
 public class ReceiptDialog extends Dialog {
 
-    public ReceiptDialog(BookEntry selectedRow) {
+    public ReceiptDialog(Order selectedRow) {
         var dialogPane = getDialogPane();
 
         var mainPane = new VBox();

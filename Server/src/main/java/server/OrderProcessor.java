@@ -24,7 +24,7 @@ public class OrderProcessor implements Runnable {
             var plate = order.getValue0();
             var services = order.getValue1();
             var arrivalTime = LocalDateTime.now();
-            var entry = new BookEntry(plate, services, arrivalTime);
+            var entry = new Order(plate, services, arrivalTime);
             Database.create(entry);
             Server.table.getItems().add(entry);
         } catch (IOException|ClassNotFoundException e) {
