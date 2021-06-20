@@ -11,7 +11,7 @@ import javafx.scene.control.TableView;
  * Revenue book UI
  */
 public class BookDialog extends Dialog {
-    private final static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+    private final static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     public BookDialog() {
         var dialogPane = getDialogPane();

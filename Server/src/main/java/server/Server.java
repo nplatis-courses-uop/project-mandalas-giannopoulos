@@ -5,12 +5,14 @@ import java.time.format.DateTimeFormatter;
 import common.Services;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -24,7 +26,7 @@ public class Server extends Application {
     public static boolean isRunning = true;
     public static TableView<Order> table = new TableView<>();
     private static OrderServer server = new OrderServer();
-    private final static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+    private final static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     @Override
     public void start(Stage stage) {
@@ -45,17 +47,29 @@ public class Server extends Application {
         for (var entry : Database.readPending()) {
             table.getItems().add(entry);
         }
-        
-        var buttonPane = new HBox();
+
+        var tableEntryBtnPane = new HBox();
         var registerBtn = new Button("Register");
         var deleteBtn = new Button("Delete");
+        tableEntryBtnPane.getChildren().addAll(registerBtn, deleteBtn);
+
         var bookBtn = new Button("Revenue log");
-        buttonPane.getChildren().addAll(registerBtn, deleteBtn, bookBtn);
-        
+
+        var buttonPane = new BorderPane();
+        buttonPane.setLeft(tableEntryBtnPane);
+        BorderPane.setAlignment(tableEntryBtnPane, Pos.CENTER);
+        buttonPane.setRight(bookBtn);
+        BorderPane.setAlignment(bookBtn, Pos.CENTER);
+
         var mainPane = new VBox(table, buttonPane);
         var scene = new Scene(mainPane, 1280, 720);
-        stage.setScene(scene);
+        try {
+            scene.getStylesheets().add(getClass().getResource("stylesheet.css").toExternalForm());
+        } catch (NullPointerException e) {
+            System.err.println(e.getMessage());
+        }
         stage.setTitle("Server");
+        stage.setScene(scene);
         stage.show();
         new Thread(server).start();
 
@@ -80,8 +94,16 @@ public class Server extends Application {
 
         deleteBtn.setOnAction((event) -> {
             var selected = table.getSelectionModel().getSelectedItem();
-            table.getItems().remove(selected);
-            Database.delete(selected);
+            if (selected != null) {
+                table.getItems().remove(selected);
+                Database.delete(selected);
+            } else {
+                var alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("There is something wrong");
+                alert.setContentText("You haven't selected anything");
+                alert.showAndWait();
+            }
         });
 
         bookBtn.setOnAction((event) -> {

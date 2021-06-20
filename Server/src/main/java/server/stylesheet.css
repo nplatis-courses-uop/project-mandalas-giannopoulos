@@ -1,0 +1,12 @@
+.table-column {
+    -fx-pref-width: 250;
+}
+
+.table-view {
+    -fx-pref-height: 720;
+}
+
+BorderPane, HBox, Button {
+    -fx-padding: 15, 15, 15, 15;
+    -fx-spacing: 15;
+}
