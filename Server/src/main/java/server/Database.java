@@ -2,6 +2,7 @@ package server;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.j256.ormlite.dao.DaoManager;
@@ -45,6 +46,9 @@ public class Database {
         try (ConnectionSource conn = new JdbcConnectionSource("jdbc:sqlite:Server/db/book.db")) {
             var result = DaoManager.createDao(conn, Order.class).queryForAll();
             conn.close();
+            if (result == null) {
+                return new ArrayList<Order>();
+            }
             return result;
         } catch (SQLException|IOException e) {
             System.err.println(e);
@@ -60,6 +64,9 @@ public class Database {
             var result = DaoManager.createDao(conn, Order.class).queryBuilder().where()
                 .isNull("departureTime").query();
             conn.close();
+            if (result == null) {
+                return new ArrayList<Order>();
+            }
             return result;
         } catch (SQLException|IOException e) {
             System.err.println(e);

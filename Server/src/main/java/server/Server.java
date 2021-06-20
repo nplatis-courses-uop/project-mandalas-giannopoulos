@@ -28,6 +28,7 @@ public class Server extends Application {
 
     @Override
     public void start(Stage stage) {
+        Database.init();
         var plateCol = new TableColumn<Order, String>("Plate");
         plateCol.setCellValueFactory(x -> new SimpleStringProperty(x.getValue().getPlate()));
         table.getColumns().add(plateCol);
