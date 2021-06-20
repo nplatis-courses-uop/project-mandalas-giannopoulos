@@ -119,7 +119,7 @@ public class Client extends Application {
                 serviceDialog.initOwner(stage);
                 serviceDialog.initModality(Modality.APPLICATION_MODAL);
                 serviceDialog.setTitle("Choose services");
-                Window window = serviceDialog.getDialogPane().getScene().getWindow();
+                var window = serviceDialog.getDialogPane().getScene().getWindow();
                 window.setOnCloseRequest((event1) -> window.hide());
                 serviceDialog.show();
             } else {

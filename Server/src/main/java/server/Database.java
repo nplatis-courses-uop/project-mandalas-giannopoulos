@@ -2,6 +2,7 @@ package server;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
@@ -25,8 +26,22 @@ public class Database {
                 new JdbcConnectionSource("jdbc:sqlite:Server/db/book.db"))
         {
             DaoManager.createDao(conn, BookEntry.class).create(entry);
+            conn.close();
         } catch (SQLException|IOException e) {
             System.err.println(e);
+        }
+    }
+
+    static List<BookEntry> read() {
+        try (ConnectionSource conn =
+                new JdbcConnectionSource("jdbc:sqlite:Server/db/book.db"))
+        {
+            var result = DaoManager.createDao(conn, BookEntry.class).queryForAll();
+            conn.close();
+            return result;
+        } catch (SQLException|IOException e) {
+            System.err.println(e);
+            return null;
         }
     }
 
@@ -35,6 +50,7 @@ public class Database {
                 new JdbcConnectionSource("jdbc:sqlite:Server/db/book.db"))
         {
             DaoManager.createDao(conn, BookEntry.class).update(entry);
+            conn.close();
         } catch (SQLException|IOException e) {
             System.err.println(e);
         }
@@ -45,6 +61,7 @@ public class Database {
                 new JdbcConnectionSource("jdbc:sqlite:Server/db/book.db"))
         {
             DaoManager.createDao(conn, BookEntry.class).delete(entry);
+            conn.close();
         } catch (SQLException|IOException e) {
             System.err.println(e);
         }

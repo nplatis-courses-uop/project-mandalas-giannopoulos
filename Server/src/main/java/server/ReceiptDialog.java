@@ -37,6 +37,7 @@ public class ReceiptDialog extends Dialog {
             selectedRow.setCost(Services.calculateCost(selectedRow.getServices()));
             selectedRow.setDepartureTime(LocalDateTime.now());
             Database.update(selectedRow);
+            Server.table.getItems().remove(selectedRow);
             dialogPane.getScene().getWindow().hide();
         });
 

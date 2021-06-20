@@ -8,7 +8,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.SelectionModel;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
@@ -44,7 +43,8 @@ public class Server extends Application {
         var buttonPane = new HBox();
         var registerBtn = new Button("Register");
         var deleteBtn = new Button("Delete");
-        buttonPane.getChildren().addAll(registerBtn, deleteBtn);
+        var bookBtn = new Button("Revenue log");
+        buttonPane.getChildren().addAll(registerBtn, deleteBtn, bookBtn);
         
         var mainPane = new VBox(table, buttonPane);
         var scene = new Scene(mainPane, 1280, 720);
@@ -74,6 +74,16 @@ public class Server extends Application {
 
         deleteBtn.setOnAction((event) -> {
             Database.delete(selectionModel.getSelectedItem());
+        });
+
+        bookBtn.setOnAction((event) -> {
+            var bookDialog = new BookDialog();
+            bookDialog.initOwner(stage);
+            bookDialog.initModality(Modality.APPLICATION_MODAL);
+            bookDialog.setTitle("Revenue log");
+            var window = bookDialog.getDialogPane().getScene().getWindow();
+            window.setOnCloseRequest((event1) -> window.hide());
+            bookDialog.show();
         });
     }
 

@@ -40,16 +40,20 @@ public class BookEntry {
         return plate;
     }
 
-    public double getCost() {
-        return cost;
-    }
-
     public ArrayList<String> getServices() {
         return services;
     }
 
     public LocalDateTime getArrivalTime() {
         return arrivalTime;
+    }
+
+    public LocalDateTime getDepartureTime() {
+        return departureTime;
+    }
+
+    public double getCost() {
+        return cost;
     }
 
     public void setDepartureTime(LocalDateTime departureTime) {
