@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import org.javatuples.Pair;
 
 /**
- * Job which connects with and sends and order to the server
+ * Job which connects to the database and writes the received cleaning order to
+ * the UI table and to the database
  */
 public class OrderProcessor implements Runnable {
     private final Socket clientSocket;
