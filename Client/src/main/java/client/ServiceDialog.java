@@ -117,20 +117,31 @@ public class ServiceDialog extends Dialog {
             if (chassisWash.isSelected()) {
                 serviceList.add(prefix + "CHA");
             }
-            var alert = new Alert(AlertType.CONFIRMATION);
-            alert.setTitle("Confirmation");
-            alert.setHeaderText("Please confirm information");
-            var content = "Plate: " + plate.getText() + "\n";
-            content += "Services:\n";
-            for (var service : serviceList) {
-                var pair = Services.get().services.get(service);
-                content += "\t" + pair.getValue0() + " (" + String.format("%.2f", pair.getValue1()) + ")\n";
-            }
-            alert.setContentText(content);
-            var pushed = alert.showAndWait();
-            if (pushed.get() == ButtonType.OK) {
-                App.send(plate.getText(), serviceList);
-            }
+            if (serviceList.size() == 0) {
+                var noSelectionError = new Alert(AlertType.ERROR);
+                noSelectionError.setTitle("Error");
+                noSelectionError.setHeaderText("There is something wrong with your selections");
+                noSelectionError.setContentText("You haven't selected anything!");
+                noSelectionError.showAndWait();
+            } else {
+                var alert = new Alert(AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation");
+                alert.setHeaderText("Please confirm information");
+                var content = "Plate: " + plate.getText() + "\n";
+                content += "Services:\n";
+                for (var service : serviceList) {
+                    var pair = Services.get().services.get(service);
+                    content += "\t" + pair.getValue0() + " (" + String.format("%.2f", pair.getValue1()) + ")\n";
+                }
+                content += "Your total is: " + String.format("%.2f", Services.calculateCost(serviceList));
+                alert.setContentText(content);
+                var pushed = alert.showAndWait();
+                if (pushed.get() == ButtonType.OK) {
+                    App.send(plate.getText(), serviceList);
+                    dialogPane.getScene().getWindow().hide();
+                    plate.clear();
+                }
+            }   
         });
         cancelBtn.setOnAction((event) -> {
             dialogPane.getScene().getWindow().hide();
@@ -286,6 +297,6 @@ public class ServiceDialog extends Dialog {
                 codes.add("MOTENG");
             }
         }
-        priceLabel.setText("Your total is " + Services.calculateCost(codes));
+        priceLabel.setText("Your total is " + String.format("%.2f", Services.calculateCost(codes)));
     }
 }
