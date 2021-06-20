@@ -59,9 +59,9 @@ public class Server extends Application {
         new Thread(server).start();
 
         registerBtn.setOnAction((event) -> {
-            var selectedRow = table.getSelectionModel().getSelectedItem();
-            if (selectedRow != null) {
-                var receiptDialog = new ReceiptDialog(selectedRow);
+            var selected = table.getSelectionModel().getSelectedItem();
+            if (selected != null) {
+                var receiptDialog = new ReceiptDialog(selected);
                 receiptDialog.initOwner(stage);
                 receiptDialog.initModality(Modality.APPLICATION_MODAL);
                 receiptDialog.setTitle("Receipt");
@@ -78,7 +78,9 @@ public class Server extends Application {
         });
 
         deleteBtn.setOnAction((event) -> {
-            Database.delete(table.getSelectionModel().getSelectedItem());
+            var selected = table.getSelectionModel().getSelectedItem();
+            table.getItems().remove(selected);
+            Database.delete(selected);
         });
 
         bookBtn.setOnAction((event) -> {
