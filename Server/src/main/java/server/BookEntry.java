@@ -7,6 +7,12 @@ import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+/**
+ * <dl>
+ * <dt><strong>ORM class</strong></dt>
+ * <dt>Represents an entry in the revenue book</dt>
+ * </dl>
+ */
 @DatabaseTable(tableName = "book")
 public class BookEntry {
     @DatabaseField(generatedId = true)
@@ -27,7 +33,7 @@ public class BookEntry {
     @DatabaseField
     private double cost;
 
-    // Mandatory for ORM to work
+    // Required by ORM
     public BookEntry() { }
 
     public BookEntry(String plate, ArrayList<String> services, LocalDateTime arrivalTime) {

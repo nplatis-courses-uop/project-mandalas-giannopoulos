@@ -10,6 +10,12 @@ import java.io.IOException;
 import org.javatuples.Pair;
 import com.opencsv.CSVReader;
 
+/**
+ * <dl>
+ * <dt><strong>Singleton class</strong></dt>
+ * <dt>Parses the cleaning services menu from the csv file Common/resrc/services.csv into a Map</dt>
+ * </dl>
+ */
 public class Services {
     private static final String path = "Common/resrc/services.csv";
     private static Services instance = null;
@@ -26,6 +32,9 @@ public class Services {
         }
     }
 
+    /**
+     * @return The instance of the singleton
+     */
     public static Services get() {
         if (instance == null) {
             instance = new Services();
@@ -33,6 +42,10 @@ public class Services {
         return instance;
     }
 
+    /**
+     * @param codes is a list of service codes
+     * @return The total cost
+     */
     public static double calculateCost(List<String> codes) {
         var cost = 0.;
         for (var code : codes) {

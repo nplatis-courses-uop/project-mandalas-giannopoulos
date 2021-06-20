@@ -17,6 +17,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 
+/**
+ * UI for selecting cleaning services
+ */
 public class ServiceDialog extends Dialog {
     private final RadioButton carRb = new RadioButton("Car");
     private final RadioButton suvRb = new RadioButton("SUV");

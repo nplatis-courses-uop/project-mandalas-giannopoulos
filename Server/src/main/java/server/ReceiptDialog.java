@@ -9,6 +9,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+/**
+ * Cleaning services receipt UI
+ */
 public class ReceiptDialog extends Dialog {
 
     public ReceiptDialog(BookEntry selectedRow) {

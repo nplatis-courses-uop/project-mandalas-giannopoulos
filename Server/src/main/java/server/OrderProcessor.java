@@ -7,6 +7,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import org.javatuples.Pair;
 
+/**
+ * Job which connects with and sends and order to the server
+ */
 public class OrderProcessor implements Runnable {
     private final Socket clientSocket;
 

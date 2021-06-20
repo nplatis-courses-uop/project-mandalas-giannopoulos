@@ -17,6 +17,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
+/**
+ * Server UI
+ */
 public class Server extends Application {
     public static boolean isRunning = true;
     public static TableView<BookEntry> table = new TableView<>();

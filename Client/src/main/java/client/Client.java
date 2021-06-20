@@ -11,8 +11,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 
+/**
+ * Client UI
+ */
 public class Client extends Application {
     private TextField plateText = new TextField();
 

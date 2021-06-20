@@ -3,6 +3,9 @@ package server;
 import java.io.IOException;
 import java.net.ServerSocket;
 
+/**
+ * A server which waits for incoming connections for cleaning orders
+ */
 public class OrderServer implements Runnable {
     private ServerSocket serverSocket;
 
