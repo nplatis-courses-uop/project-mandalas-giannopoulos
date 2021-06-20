@@ -38,7 +38,9 @@ public class Server extends Application {
             new SimpleStringProperty(dtf.format(x.getValue().getArrivalTime())));
         table.getColumns().add(arrivalCol);
 
-        var selectionModel = table.getSelectionModel();
+        for (var entry : Database.readPending()) {
+            table.getItems().add(entry);
+        }
         
         var buttonPane = new HBox();
         var registerBtn = new Button("Register");
@@ -54,7 +56,7 @@ public class Server extends Application {
         new Thread(server).start();
 
         registerBtn.setOnAction((event) -> {
-            var selectedRow = selectionModel.getSelectedItem();
+            var selectedRow = table.getSelectionModel().getSelectedItem();
             if (selectedRow != null) {
                 var receiptDialog = new ReceiptDialog(selectedRow);
                 receiptDialog.initOwner(stage);
@@ -73,7 +75,7 @@ public class Server extends Application {
         });
 
         deleteBtn.setOnAction((event) -> {
-            Database.delete(selectionModel.getSelectedItem());
+            Database.delete(table.getSelectionModel().getSelectedItem());
         });
 
         bookBtn.setOnAction((event) -> {

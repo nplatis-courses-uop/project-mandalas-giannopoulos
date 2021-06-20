@@ -21,7 +21,7 @@ public class BookEntry {
     @DatabaseField(canBeNull = false, dataType = DataType.SERIALIZABLE)
     private LocalDateTime arrivalTime;
 
-    @DatabaseField(dataType = DataType.SERIALIZABLE)
+    @DatabaseField(dataType = DataType.SERIALIZABLE, columnName = "departureTime")
     private LocalDateTime departureTime;
 
     @DatabaseField
