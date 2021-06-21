@@ -1,3 +1,7 @@
+.root {
+    -fx-font-family: Arial, sans-serif;
+}
+
 HBox, VBox {
     -fx-alignment: top-center;
     -fx-spacing: 10;
@@ -13,13 +17,13 @@ Button {
     -fx-min-height: 60;
     -fx-pref-width: 90;
     -fx-pref-height: 90;
-    -fx-font-size: 27;
+    -fx-font-size: 24;
 }
 
 #buttons1 {
     -fx-pref-width: 165;
     -fx-pref-height: 90;
-    -fx-font-size: 27; 
+    -fx-font-size: 24;
 }
 
 #zerobtn {
@@ -40,12 +44,12 @@ TextField {
 }
 
 RadioButton {
-    -fx-font-size: 28;
+    -fx-font-size: 24;
     -fx-font-weight: bold; 
 }
 
 CheckBox {
-    -fx-font-size: 28;
+    -fx-font-size: 24;
     -fx-font-weight: bold;
 }
 
