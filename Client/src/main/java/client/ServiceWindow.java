@@ -117,7 +117,7 @@ public class ServiceWindow {
                 serviceList.add(code);
             }
             if (washIO.isSelected()) {
-                var code = prefix + "IE";
+                var code = prefix + "EI";
                 code += ioSpecial.isSelected() ? "S" : "R";
                 serviceList.add(code);
             }
