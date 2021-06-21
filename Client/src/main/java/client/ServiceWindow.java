@@ -1,17 +1,19 @@
 package client;
 
-import javafx.scene.control.Dialog;
+import java.util.ArrayList;
+
+import common.Services;
+
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.scene.layout.HBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Alert.AlertType;
-
-import java.util.ArrayList;
-
-import common.Services;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -20,32 +22,32 @@ import javafx.scene.control.CheckBox;
 /**
  * UI for selecting cleaning services
  */
-public class ServiceDialog extends Dialog {
-    private final RadioButton carRb = new RadioButton("Car");
-    private final RadioButton suvRb = new RadioButton("SUV");
-    private final RadioButton motoRb = new RadioButton("Motorcycle");
-    private final CheckBox washIn = new CheckBox("Interior wash");
-    private final CheckBox inSpecial = new CheckBox("Special");
-    private final CheckBox washOut = new CheckBox("Exterior wash");
-    private final CheckBox outSpecial = new CheckBox("Special");
-    private final CheckBox washIO = new CheckBox("Inside/Out wash");
-    private final CheckBox ioSpecial = new CheckBox("Special");
-    private final CheckBox org = new CheckBox("Organic cleaning (Interior)");
-    private final CheckBox wax = new CheckBox("Wax");
-    private final CheckBox engineWash = new CheckBox("Engine Wash");
-    private final CheckBox chassisWash = new CheckBox("Chassis Wash");
-    private final Label priceLabel = new Label("Your total is 0.00");
+public class ServiceWindow {
+    private static final RadioButton carRb = new RadioButton("Car");
+    private static final RadioButton suvRb = new RadioButton("SUV");
+    private static final RadioButton motoRb = new RadioButton("Motorcycle");
+    private static final CheckBox washIn = new CheckBox("Interior wash");
+    private static final CheckBox inSpecial = new CheckBox("Special");
+    private static final CheckBox washOut = new CheckBox("Exterior wash");
+    private static final CheckBox outSpecial = new CheckBox("Special");
+    private static final CheckBox washIO = new CheckBox("Interior/exterior wash");
+    private static final CheckBox ioSpecial = new CheckBox("Special");
+    private static final CheckBox org = new CheckBox("Organic cleaning (Interior)");
+    private static final CheckBox wax = new CheckBox("Wax");
+    private static final CheckBox engineWash = new CheckBox("Engine Wash");
+    private static final CheckBox chassisWash = new CheckBox("Chassis Wash");
+    private static final Label priceLabel = new Label("Your total is 0.00"); 
 
-    public ServiceDialog(TextField plate) {
-        var dialogPane = getDialogPane();
-
+    public static void display(Stage primaryStage, TextField plate) {
+        
         var mainPane = new VBox();
+        mainPane.setId("main");
 
         var instructions = new Label("Choose your service/services...");
+        instructions.setId("inst");
         
-        var secondPane = new HBox();
-
         var vehiclePane = new VBox();
+        vehiclePane.setId("radio");
         final ToggleGroup vehicleGroup = new ToggleGroup();
         carRb.setToggleGroup(vehicleGroup);
         carRb.setSelected(true);
@@ -54,30 +56,44 @@ public class ServiceDialog extends Dialog {
         vehiclePane.getChildren().addAll(carRb, suvRb, motoRb);
 
         var optionsPane = new VBox();
+        optionsPane.setId("options");
+        
+        var specialPane = new VBox(inSpecial, outSpecial, ioSpecial);
+        specialPane.setId("special");
 
-        var inwPane = new HBox();
+        optionsPane.getChildren().addAll(washIn, washOut, washIO, org, wax, engineWash, chassisWash);
+        var midPane = new HBox(vehiclePane, optionsPane, specialPane);
+        midPane.setId("midPane");
+
         inSpecial.setDisable(true);
-        inwPane.getChildren().addAll(washIn, inSpecial);
-
-        var outwPane = new HBox();
         outSpecial.setDisable(true);
-        outwPane.getChildren().addAll(washOut, outSpecial);
-
-        var iowPane = new HBox();
         ioSpecial.setDisable(true);
-        iowPane.getChildren().addAll(washIO, ioSpecial);
 
+        var botPane = new VBox();
+        botPane.setId("bot");
         var buttonPane = new HBox();
         var doneBtn = new Button("Done");
+        doneBtn.setId("buttons1");
         var cancelBtn = new Button("Cancel");
+        cancelBtn.setId("buttons1");
         buttonPane.getChildren().addAll(doneBtn, cancelBtn);
+        botPane.getChildren().addAll(priceLabel, buttonPane);
 
-        optionsPane.getChildren().addAll(inwPane, outwPane, iowPane, org, wax, engineWash, chassisWash);
-        secondPane.getChildren().addAll(vehiclePane, optionsPane);
+        mainPane.getChildren().addAll(instructions, midPane, botPane);
 
-        mainPane.getChildren().addAll(instructions, secondPane, priceLabel, buttonPane);
-        dialogPane.setContent(mainPane);
-        dialogPane.setMinSize(1920, 1080);
+        var stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initOwner(primaryStage);
+        stage.setTitle("Select services");
+        stage.setResizable(false);
+        var scene = new Scene(mainPane, primaryStage.getWidth(), primaryStage.getHeight());
+        try {
+            scene.getStylesheets().add(ServiceWindow.class.getResource("stylesheet.css").toExternalForm());
+        } catch (NullPointerException e) {
+            System.err.println(e.getMessage());
+        }
+        stage.setScene(scene);
+        stage.show();
 
         doneBtn.setOnAction((event) -> {
             var serviceList = new ArrayList<String>();
@@ -138,13 +154,13 @@ public class ServiceDialog extends Dialog {
                 var pushed = alert.showAndWait();
                 if (pushed.get() == ButtonType.OK) {
                     App.send(plate.getText(), serviceList);
-                    dialogPane.getScene().getWindow().hide();
+                    stage.close();
                     plate.clear();
                 }
             }   
         });
         cancelBtn.setOnAction((event) -> {
-            dialogPane.getScene().getWindow().hide();
+            stage.close();
             plate.clear();
         });
         carRb.setOnAction((event) -> {
@@ -201,7 +217,7 @@ public class ServiceDialog extends Dialog {
         });
     }
 
-    private void handleVisibility() {
+    private static void handleVisibility() {
         washIn.setDisable(motoRb.isSelected() || org.isSelected() || washIO.isSelected());
         inSpecial.setDisable(motoRb.isSelected() || !washIn.isSelected());
         outSpecial.setDisable(!washOut.isSelected());
@@ -212,7 +228,7 @@ public class ServiceDialog extends Dialog {
         washOut.setDisable(washIO.isSelected());
     }
 
-    private void updateCost() {
+    private static void updateCost() {
         var codes = new ArrayList<String>();
         if (carRb.isSelected()) {
             if (washIn.isSelected() && !washIn.isDisabled()) {

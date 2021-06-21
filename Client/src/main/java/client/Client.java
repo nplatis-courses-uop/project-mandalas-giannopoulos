@@ -22,17 +22,22 @@ public class Client extends Application {
     public void start(Stage stage) {
         var mainPane = new VBox();
 
-        var instrLabel = new Label("Please insert your vehicle plate...");
+        var instrLabel = new Label("Please insert your vehicle plate number...");
         var keyboardPane = new HBox();
         mainPane.getChildren().addAll(instrLabel, plateText, keyboardPane);
+        mainPane.setId("mainPane");
 
         var letterKeyboard = new VBox();
 
         var lkRow1 = new HBox();
         var backspace = new Button("<--");
+        backspace.setId("buttons1");
         var space = new Button("____");
+        space.setId("buttons1");
         var enter = new Button("Enter");
+        enter.setId("buttons1");
         var delete = new Button("Delete All");
+        delete.setId("buttons1");
         lkRow1.getChildren().addAll(space, backspace, delete, enter);
 
         var lkRow2 = new HBox();
@@ -70,13 +75,15 @@ public class Client extends Application {
         var bM = makeKeyButton("M");
         lkRow4.getChildren().addAll(bZ, bX, bC, bV, bB, bN, bM);
 
-        letterKeyboard.getChildren().addAll(lkRow1, lkRow2, lkRow3, lkRow4);
+        letterKeyboard.getChildren().addAll(lkRow2, lkRow3, lkRow4, lkRow1);
 
         var numberKeyboard = new VBox();
 
         var nkRow1 = new HBox();
         var b0 = makeKeyButton("0");
-        nkRow1.getChildren().add(b0);
+        var backspace1 = new Button("<-");
+        b0.setId("zerobtn");
+        nkRow1.getChildren().addAll(b0, backspace1);
 
         var nkRow2 = new HBox();
         var b7 = makeKeyButton("7");
@@ -96,11 +103,21 @@ public class Client extends Application {
         var b3 = makeKeyButton("3");
         nkRow4.getChildren().addAll(b1, b2, b3);
 
-        numberKeyboard.getChildren().addAll(nkRow1, nkRow2, nkRow3, nkRow4);
+        numberKeyboard.getChildren().addAll(nkRow2, nkRow3, nkRow4, nkRow1);
 
         keyboardPane.getChildren().addAll(letterKeyboard, numberKeyboard);
 
         var scene = new Scene(mainPane, 1920, 1080);
+        try {
+            scene.getStylesheets().add(getClass().getResource("stylesheet.css").toExternalForm());
+        } catch (NullPointerException e) {
+            System.err.println(e.getMessage());
+        }
+        
+        stage.setMinHeight(768);
+        stage.setMinWidth(1024);
+        stage.setMaxWidth(1920);
+        stage.setMaxHeight(1080);
         stage.setTitle("Client");
         stage.setScene(scene);
         stage.show();
@@ -114,16 +131,13 @@ public class Client extends Application {
         backspace.setOnAction((event) -> {
             plateText.setText(plateText.getText().substring(0, plateText.getText().length() - 1));
         });
+        backspace1.setOnAction((event) -> {
+            plateText.setText(plateText.getText().substring(0, plateText.getText().length() - 1));
+        });
         enter.setOnAction((event) -> {
             plateText.setText(plateText.getText().trim());
             if (App.plateValidation(plateText.getText())) {
-                var serviceDialog = new ServiceDialog(plateText);
-                serviceDialog.initOwner(stage);
-                serviceDialog.initModality(Modality.APPLICATION_MODAL);
-                serviceDialog.setTitle("Choose services");
-                var window = serviceDialog.getDialogPane().getScene().getWindow();
-                window.setOnCloseRequest((event1) -> window.hide());
-                serviceDialog.show();
+                ServiceWindow.display(stage, plateText);
             } else {
                 var alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Error");
@@ -135,7 +149,7 @@ public class Client extends Application {
         });
     }
 
-    public Button makeKeyButton(String label) {
+    private Button makeKeyButton(String label) {
         var result = new Button(label);
         result.setOnAction((event) -> {
             plateText.setText(plateText.getText() + label);
@@ -146,4 +160,5 @@ public class Client extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+    
 }

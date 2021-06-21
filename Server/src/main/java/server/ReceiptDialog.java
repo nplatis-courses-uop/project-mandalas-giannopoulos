@@ -34,7 +34,6 @@ public class ReceiptDialog extends Dialog {
         mainPane.getChildren().add(btnPane);
 
         dialogPane.setContent(mainPane);
-        dialogPane.setMinSize(1280, 720);
 
         registerBtn.setOnAction((event) -> {
             selectedRow.setCost(Services.calculateCost(selectedRow.getServices()));

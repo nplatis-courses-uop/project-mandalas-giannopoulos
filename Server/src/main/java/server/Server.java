@@ -80,7 +80,9 @@ public class Server extends Application {
                 receiptDialog.initOwner(stage);
                 receiptDialog.initModality(Modality.APPLICATION_MODAL);
                 receiptDialog.setTitle("Receipt");
-                Window window = receiptDialog.getDialogPane().getScene().getWindow();
+                receiptDialog.setWidth(300);
+                receiptDialog.setHeight(500);
+                var window = receiptDialog.getDialogPane().getScene().getWindow();
                 window.setOnCloseRequest((event1) -> window.hide());
                 receiptDialog.show();
             } else {
