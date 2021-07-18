@@ -33,7 +33,7 @@ public class BookDialog extends Dialog {
             new SimpleStringProperty(dtf.format(x.getValue().getArrivalTime())));
         table.getColumns().add(arrivalCol);
 
-        var departureCol = new TableColumn<Order, String>("Arrival Time");
+        var departureCol = new TableColumn<Order, String>("Departure Time");
         departureCol.setCellValueFactory(x -> {
             var departureTime = x.getValue().getDepartureTime();
             return new SimpleStringProperty(departureTime != null ? dtf.format(departureTime) : "--");
