@@ -1,0 +1,86 @@
+.root {
+    -fx-font-family: Arial, sans-serif;
+}
+
+HBox, VBox {
+    -fx-alignment: top-center;
+    -fx-spacing: 10;
+}
+
+#mainPane {
+    -fx-padding: 50 100 50 100;
+    -fx-spacing: 100;
+}
+
+Button {
+    -fx-min-width: 67;
+    -fx-min-height: 60;
+    -fx-pref-width: 90;
+    -fx-pref-height: 90;
+    -fx-font-size: 24;
+}
+
+#buttons1 {
+    -fx-pref-width: 165;
+    -fx-pref-height: 90;
+    -fx-font-size: 24;
+}
+
+#zerobtn {
+    -fx-pref-width: 190;
+    -fx-pref-height: 90;
+    -fx-font-size: 27;
+}
+
+Label {
+    -fx-font-size: 32;
+    -fx-font-weight: bold;
+}
+
+TextField {
+    -fx-pref-height: 100;
+    -fx-font-size: 32;
+    -fx-alignment: center;
+}
+
+RadioButton {
+    -fx-font-size: 24;
+    -fx-font-weight: bold; 
+}
+
+CheckBox {
+    -fx-font-size: 24;
+    -fx-font-weight: bold;
+}
+
+#main {
+    -fx-alignment: center;
+    -fx-spacing: 80;
+}
+
+#inst {
+    -fx-font-size: 40;
+    -fx-font-weight: bold;
+}
+
+#radio {
+    -fx-alignment: left;
+}
+
+#midPane {
+    -fx-alignment: center;
+    -fx-spacing: 55;
+}
+
+#special {
+    -fx-alignment: left;
+    -fx-padding: 0 150 0 0;
+}
+
+#bot {
+    -fx-padding: 0 0 50 0;
+}
+
+#options {
+    -fx-alignment: left;
+}

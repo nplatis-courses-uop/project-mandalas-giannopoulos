@@ -1,4 +1,6 @@
-module gr.uop {
+module Client {
     requires javafx.controls;
-    exports gr.uop;
+    requires javatuples;
+    requires Common;
+    exports client;
 }

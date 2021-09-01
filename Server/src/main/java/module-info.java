@@ -1,4 +1,10 @@
-module gr.uop {
+module Server {
     requires javafx.controls;
-    exports gr.uop;
+    requires javatuples;
+    requires java.sql;
+    requires sqlite.jdbc;
+    requires ormlite.core;
+    requires ormlite.jdbc;
+    requires Common;
+    opens server;
 }
